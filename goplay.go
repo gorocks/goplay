@@ -8,7 +8,6 @@ import (
 	"io"
 	"io/ioutil"
 	"net/http"
-	"net/url"
 	"time"
 )
 
@@ -73,14 +72,7 @@ func (c *Client) Run(code io.Reader, stdout io.Writer, stderr io.Writer) error {
 
 // Compile compiles code on The Go Playground.
 func (c *Client) Compile(code io.Reader) (*Response, error) {
-	b, err := ioutil.ReadAll(code)
-	if err != nil {
-		return nil, err
-	}
-	v := url.Values{}
-	v.Set("version", "2")
-	v.Set("body", string(b))
-	resp, err := c.httpClient().PostForm(c.compileEndpoint(), v)
+	resp, err := c.httpClient().Post(c.compileEndpoint(), "text/plain; charset=utf-8", code)
 	if err != nil {
 		return nil, err
 	}
