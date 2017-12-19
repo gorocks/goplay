@@ -12,7 +12,7 @@ import (
 	"time"
 )
 
-const defaultBaseURL = "https://play.golang.org"
+const defaultBaseURL = "https://goplay.space"
 
 // DefaultClient is default Go Playground client.
 var DefaultClient = &Client{}
@@ -107,7 +107,7 @@ func (c *Client) Share(code io.Reader) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return fmt.Sprintf("%s/p/%s", c.baseURL(), string(b)), nil
+	return fmt.Sprintf("%s/#%s", c.baseURL(), string(b)), nil
 }
 
 // Response represensts response type of /compile.
